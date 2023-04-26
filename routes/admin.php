@@ -4,11 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 
 
-Route::middleware(['auth'])->group(function (){
-
 Route::post('/admin/logout', [AdminController::class, 'destroy'])->name('logout');
 
 Route::get('/logout', [AdminController::class, 'LogoutPage']);
+
+
+Route::middleware(['auth'])->group(function (){
 
 Route::get('/admin/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
 
