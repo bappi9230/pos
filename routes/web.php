@@ -38,5 +38,11 @@ require __DIR__.'/customer.php';
 
 require __DIR__.'/supplier.php';
 
-require __DIR__.'advance_salary.php';
+require __DIR__.'/advance_salary.php';
+
+require __DIR__ . '/attendance.php';
+
+require __DIR__ . '/category.php';
+
+require __DIR__ . '/product.php';
 

@@ -12,10 +12,10 @@
                     <div class="page-title-box">
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <a href="{{ route('add.supplier') }}" class="btn btn-primary rounded-pill waves-effect waves-light">Add Supplier </a>
+                                <a href="{{ route('employee.attend.list') }}" class="btn btn-primary rounded-pill waves-effect waves-light"> Back </a>
                             </ol>
                         </div>
-                        <h4 class="page-title">All Supplier</h4>
+                        <h4 class="page-title">All Employee Attendance</h4>
                     </div>
                 </div>
             </div>
@@ -32,27 +32,28 @@
                                 <tr>
                                     <th>Sl</th>
                                     <th>Image</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Type</th>
-                                    <th>Action</th>
+                                    <th>Employee Name</th>
+                                    <th>Date</th>
+                                    <th>Attend Status</th>
                                 </tr>
                                 </thead>
 
 
                                 <tbody>
-                                @foreach($supplier as $key=> $item)
+                                @foreach($dateWiseData as $key=> $item)
                                     <tr>
                                         <td>{{ $key+1 }}</td>
-                                        <td> <img src="{{ asset($item->image) }}" style="width:50px; height: 40px;"> </td>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->email }}</td>
-                                        <td>{{ $item->phone }}</td>
-                                        <td>{{ $item->type }}</td>
+                                        <td> <img src="{{ asset($item->employee->image) }}" style="width: 50px;height: 30px"> </td>
+                                        <td>{{ $item->employee->name }}</td>
+                                        <td>{{ date('Y-m-d', strtotime($item->date))  }}</td>
                                         <td>
-                                            <a href="{{ route('edit.supplier',$item->id) }}" class="btn btn-info sm" title="Edit" ><i class="fa fa-edit"></i></a>
-                                            <a href="{{ route('delete.supplier',$item->id) }}" class="btn btn-danger sm" title="Delete" id="delete" ><i class="fa fa-trash" ></i></a>
+                                            @if($item->attend_status == 'present')
+                                                <span class="" style="color: lime">Present</span>
+                                            @elseif($item->attend_status == 'Leave')
+                                                <span style="color: indianred">Leave</span>
+                                            @else
+                                                <span style="color: red"> Absent </span>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

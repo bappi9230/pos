@@ -12,10 +12,10 @@
                     <div class="page-title-box">
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <a href="{{ route('add.supplier') }}" class="btn btn-primary rounded-pill waves-effect waves-light">Add Supplier </a>
+                                <a href="{{ route('add.advance.salary') }}" class="btn btn-primary rounded-pill waves-effect waves-light">Add Advance Salary </a>
                             </ol>
                         </div>
-                        <h4 class="page-title">All Supplier</h4>
+                        <h4 class="page-title">All Pay Salary</h4>
                     </div>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-
+                            <h4 class="header-title">{{ date("F Y") }}</h4>
 
                             <table id="basic-datatable" class="table dt-responsive nowrap w-100">
                                 <thead>
@@ -33,26 +33,37 @@
                                     <th>Sl</th>
                                     <th>Image</th>
                                     <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Type</th>
+                                    <th>Month</th>
+                                    <th>Salary</th>
+                                    <th>Advance</th>
+                                    <th>Due</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
 
 
                                 <tbody>
-                                @foreach($supplier as $key=> $item)
+                                @foreach($employee as $key=> $item)
                                     <tr>
                                         <td>{{ $key+1 }}</td>
                                         <td> <img src="{{ asset($item->image) }}" style="width:50px; height: 40px;"> </td>
                                         <td>{{ $item->name }}</td>
-                                        <td>{{ $item->email }}</td>
-                                        <td>{{ $item->phone }}</td>
-                                        <td>{{ $item->type }}</td>
+                                        <td><span class="badge bg-info"> {{ date("F", strtotime('-1 month')) }} </span> </td>
+                                        <td> {{ $item->salary }} </td>
+
                                         <td>
-                                            <a href="{{ route('edit.supplier',$item->id) }}" class="btn btn-info sm" title="Edit" ><i class="fa fa-edit"></i></a>
-                                            <a href="{{ route('delete.supplier',$item->id) }}" class="btn btn-danger sm" title="Delete" id="delete" ><i class="fa fa-trash" ></i></a>
+                                            @if($item->advance->advance_salary === NULL)
+                                                <p>No Advance</p>
+                                            @else
+                                              {{ $item->advance->advance_salary }}
+                                            @endif
+                                        </td>
+                                        @php
+                                            $due =$item->salary - $item->advance->advance_salary;
+                                        @endphp
+                                        <td style="color:#0b0b0b; font-weight: bold">{{ round($due) }}</td>
+                                        <td>
+                                            <a href="{{ route('pay.now.salary',$item->id) }}" class="btn btn-blue rounded-pill waves-effect waves-light">Pay Now</a>
                                         </td>
                                     </tr>
                                 @endforeach

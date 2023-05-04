@@ -12,10 +12,10 @@
                     <div class="page-title-box">
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <a href="{{ route('add.supplier') }}" class="btn btn-primary rounded-pill waves-effect waves-light">Add Supplier </a>
+                                <a href="{{ route('add.employee.attend') }}" class="btn btn-primary rounded-pill waves-effect waves-light">Add Employee Attendance  </a>
                             </ol>
                         </div>
-                        <h4 class="page-title">All Supplier</h4>
+                        <h4 class="page-title">All Employee Attendance</h4>
                     </div>
                 </div>
             </div>
@@ -31,28 +31,21 @@
                                 <thead>
                                 <tr>
                                     <th>Sl</th>
-                                    <th>Image</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Type</th>
+                                    <th>Date</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
 
 
                                 <tbody>
-                                @foreach($supplier as $key=> $item)
+                                @foreach($allData as $key=> $item)
                                     <tr>
                                         <td>{{ $key+1 }}</td>
-                                        <td> <img src="{{ asset($item->image) }}" style="width:50px; height: 40px;"> </td>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->email }}</td>
-                                        <td>{{ $item->phone }}</td>
-                                        <td>{{ $item->type }}</td>
+                                        <td>{{ date('Y-m-d', strtotime($item->date))  }}</td>
                                         <td>
-                                            <a href="{{ route('edit.supplier',$item->id) }}" class="btn btn-info sm" title="Edit" ><i class="fa fa-edit"></i></a>
-                                            <a href="{{ route('delete.supplier',$item->id) }}" class="btn btn-danger sm" title="Delete" id="delete" ><i class="fa fa-trash" ></i></a>
+                                            <a href="{{ route('employee.attend.edit',$item->date) }}" class="btn btn-info sm" title="Edit" ><i class="fa fa-edit"></i></a>
+                                            <a href="{{ route('employee.attend.view',$item->date) }}" class="btn btn-success sm" title="view"  ><i class="fa fa-eye" ></i></a>
+                                            <a href="{{ route('employee.attend.delete',$item->date) }}" class="btn btn-danger sm" title="Delete" id="delete" ><i class="fa fa-trash" ></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

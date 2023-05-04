@@ -157,6 +157,9 @@
 <script src="{{ asset('backend/assets/js/sweet_alert.js') }}"></script>
 <!-- End Sweetalert--->
 
+<!--========= validation=========-->
+<script src="{{ asset('backend/assets/js/validate.min.js') }}"></script>
+
 
 </body>
 </html>

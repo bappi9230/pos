@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AdvanceSalary extends Model
+class PaySalary extends Model
 {
     use HasFactory;
     protected $guarded=[];
@@ -13,6 +13,4 @@ class AdvanceSalary extends Model
     public function employee(){
         return $this->belongsTo(Employee::class,'employee_id','id');
     }
-
-
 }

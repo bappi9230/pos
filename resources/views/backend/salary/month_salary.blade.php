@@ -12,10 +12,10 @@
                     <div class="page-title-box">
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <a href="{{ route('add.supplier') }}" class="btn btn-primary rounded-pill waves-effect waves-light">Add Supplier </a>
+                                <a href="{{ route('add.advance.salary') }}" class="btn btn-primary rounded-pill waves-effect waves-light">Add Advance Salary </a>
                             </ol>
                         </div>
-                        <h4 class="page-title">All Supplier</h4>
+                        <h4 class="page-title">Last Month Salary</h4>
                     </div>
                 </div>
             </div>
@@ -33,26 +33,26 @@
                                     <th>Sl</th>
                                     <th>Image</th>
                                     <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Type</th>
+                                    <th>Month</th>
+                                    <th>Salary</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
 
 
                                 <tbody>
-                                @foreach($supplier as $key=> $item)
+                                @foreach($paidsalary as $key=> $item)
                                     <tr>
                                         <td>{{ $key+1 }}</td>
-                                        <td> <img src="{{ asset($item->image) }}" style="width:50px; height: 40px;"> </td>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->email }}</td>
-                                        <td>{{ $item->phone }}</td>
-                                        <td>{{ $item->type }}</td>
+                                        <td> <img src="{{ asset($item->employee->image) }}" style="width:50px; height: 40px;"> </td>
+                                        <td>{{ $item->employee->name }}</td>
+                                        <td>{{ $item->salary_month }}</td>
+                                        <td>{{ $item['employee']['salary'] }}</td>
+                                        <td><span class="badge bg-success"> Full Paid </span> </td>
                                         <td>
-                                            <a href="{{ route('edit.supplier',$item->id) }}" class="btn btn-info sm" title="Edit" ><i class="fa fa-edit"></i></a>
-                                            <a href="{{ route('delete.supplier',$item->id) }}" class="btn btn-danger sm" title="Delete" id="delete" ><i class="fa fa-trash" ></i></a>
+                                            <a href="{{ route('employee.salary.history',$item->id) }}" class="btn btn-blue rounded-pill waves-effect waves-light">History</a>
+
                                         </td>
                                     </tr>
                                 @endforeach
