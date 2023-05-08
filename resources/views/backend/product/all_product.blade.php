@@ -12,6 +12,8 @@
                     <div class="page-title-box">
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
+                                <a href="{{ route('import') }}" class="btn btn-primary rounded-pill waves-effect waves-light">Import</a>
+                                <a href="{{ route('export') }}" class="btn btn-success rounded-pill waves-effect waves-light mx-1">Download Xlsx</a>
                                 <a href="{{ route('add.product') }}" class="btn btn-primary rounded-pill waves-effect waves-light">Add Product </a>
                             </ol>
                         </div>

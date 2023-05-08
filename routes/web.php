@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,4 +44,8 @@ require __DIR__ . '/attendance.php';
 require __DIR__ . '/category.php';
 
 require __DIR__ . '/product.php';
+
+require __DIR__.'/expense.php';
+
+require __DIR__.'/pos.php';
 

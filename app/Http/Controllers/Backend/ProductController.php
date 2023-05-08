@@ -10,7 +10,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
-
+use App\Exports\ProductExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ProductImport;
 
 class ProductController extends Controller
 {
@@ -169,6 +171,40 @@ class ProductController extends Controller
         return view('backend.product.barcode_product',compact('product'));
     }
 
+    public function ImportProduct(){
 
+        return view('backend.product.import_product');
+
+    }// End Method
+
+    public function Export(){
+
+        return Excel::download(new ProductExport(),'products.xlsx');
+
+    }// End Method
+
+    public function Import(Request $request){
+
+
+        if ($request->file('import_file')){
+            Excel::import(new ProductImport(),$request->file('import_file'));
+
+            $notification = array(
+                'message' => 'Product Imported Successfully',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('all.product')->with($notification);
+        }
+        else{
+            $notification = array(
+                'message' => 'please select file Successfully',
+                'alert-type' => 'warning'
+            );
+            return redirect()->back()->with($notification);
+        }
+
+
+
+    }// End Method
 
 }

@@ -126,6 +126,7 @@
             $(this).parents('tr').find('.datetime').css('pointer-events','none').css('background-color','#dee2e6').css('color','#dee2e6');
         });
     </script>
+
     <script type="text/javascript">
         $(document).on('click','.present_all',function(){
             $("input[value=Present]").prop('checked',true);
