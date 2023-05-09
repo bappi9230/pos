@@ -31,7 +31,7 @@
                         <div class="card-body">
 
                             <div class="table-responsive">
-                                <table class="table table-bordered border-dark mb-0">
+                                <table class="table table-bordered" style="margin-bottom: 0.5px">
                                     <thead>
                                     <tr class="bg-info">
                                         <th>Name</th>
@@ -42,23 +42,25 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($cart_content as $item)
-                                    <tr>
-                                        <td>{{$item->name}}</td>
-                                        <td>
-                                            <form action="{{ route('update-qty',$item->rowId) }}" method="post">
-                                                @csrf
-                                                <input type="number" name="qty" value="{{$item->qty}}" style="width:40px;" min="1">
-                                                <button type="submit" class="border bg-success"><i class="fas fa-check" style="color: white" title="Update Qty"></i></button>
-                                            </form>
-                                        </td>
-                                        <td>{{ $item->price }}</td>
-                                        <td>{{ $item->price *$item->qty }}</td>
-                                        <td><a href="{{route('remove-item',$item->rowId)}}"><i class="fas fa-trash-alt" style="color:#000;"></i></a></td>
+                                        @if( !Cart::count()) <tr> <td colspan="5" class="text-danger">There is no Data. please select Product</td></tr>
+                                        @else
+                                        @foreach($cart_content as $item)
+                                            <tr>
+                                                <td>{{$item->name}}</td>
+                                                <td>
+                                                    <form action="{{ route('update-qty',$item->rowId) }}" method="post">
+                                                        @csrf
+                                                        <input type="number" name="qty" value="{{$item->qty}}" style="width:40px;" min="1">
+                                                        <button type="submit" class="border bg-success"><i class="fas fa-check" style="color: white" title="Update Qty"></i></button>
+                                                    </form>
+                                                </td>
+                                                <td>{{ $item->price }}</td>
+                                                <td>{{ $item->price *$item->qty }}</td>
+                                                <td><a href="{{route('remove-item',$item->rowId)}}"><i class="fas fa-trash-alt" style="color:#000;"></i></a></td>
 
-                                    </tr>
-                                    @endforeach
-
+                                            </tr>
+                                        @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>

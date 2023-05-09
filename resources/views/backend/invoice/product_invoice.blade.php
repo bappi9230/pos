@@ -1,7 +1,6 @@
 @extends('dashboard')
 @section('admin')
 
-
     <div class="content">
 
         <!-- Start Content-->
@@ -182,12 +181,6 @@
                         <div class="mb-3">
                             <label for="username" class="form-label">Pay Now</label>
                             <input class="form-control" type="text" name="category_name" placeholder="Pay Now">
-                        </div>
-
-
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Due Amount</label>
-                            <input class="form-control" type="text" name="category_name" placeholder="Due Amount ">
                         </div>
 
 
