@@ -119,7 +119,7 @@
                                 <div class="col-sm-6">
                                     <div class="float-end">
                                         <p><b>Sub-total:</b> <span class="float-end">{{ Cart::subtotal() }}</span></p>
-                                        <p><b>Discount (21%):</b> <span class="float-end"> &nbsp;&nbsp;&nbsp; {{ Cart::tax() }}</span></p>
+                                        <p><b>Tax (21%):</b> <span class="float-end"> &nbsp;&nbsp;&nbsp; {{ Cart::tax() }}</span></p>
                                         <hr style="border: 1px solid black">
                                         <p><b style="color: black; font-size: 20px; font-weight: bold">Total:</b><span class="float-end" style="color: black; font-size: 20px; font-weight: bold">{{ Cart::total() }} </span></p>
                                     </div>

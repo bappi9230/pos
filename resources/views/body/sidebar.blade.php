@@ -49,6 +49,13 @@
                 <li class="menu-title">Navigation</li>
 
                 <li>
+                    <a href="{{ route('dashboard') }}" >
+                        <i class="mdi mdi-view-dashboard-outline"></i>
+                        <span> Dashboard </span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="{{ route('pos') }}" >
                         <span class="badge bg-pink float-end">Hot</span>
                         <i class="mdi mdi-view-dashboard-outline"></i>
@@ -243,20 +250,14 @@
                 <li>
                     <a href="#stock" data-bs-toggle="collapse">
                         <i class="mdi mdi-email-multiple-outline"></i>
-                        <span>   </span>
+                        <span> Stock Manage  </span>
                         <span class="menu-arrow"></span>
                     </a>
                     <div class="collapse" id="stock">
                         <ul class="nav-second-level">
                             <li>
-                                <a href="{{ route('pending.order') }}">Pending Orders </a>
+                                <a href="{{ route('stock.manage') }}"> Stock </a>
                             </li>
-
-                            <li>
-                                <a href="{{ route('complete.product') }}">Complete Orders </a>
-                            </li>
-
-
                         </ul>
                     </div>
                 </li>

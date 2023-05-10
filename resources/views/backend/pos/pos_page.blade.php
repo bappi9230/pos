@@ -122,6 +122,7 @@
                                         <th>Sl</th>
                                         <th>Image</th>
                                         <th>Name</th>
+                                        <th>Product Code</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -140,6 +141,7 @@
                                                     <td>{{ $key+1 }}</td>
                                                     <td> <img src="{{ asset($item->product_image) }}" style="width:50px; height: 40px;"> </td>
                                                     <td>{{ $item->product_name }}</td>
+                                                    <td>{{ $item->product_code }}</td>
                                                     <td><button type="submit" style="font-size: 20px; color: #000;" > <i class="fas fa-plus-square"></i> </button> </td>
 
                                                 </form>

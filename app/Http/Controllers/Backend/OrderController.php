@@ -5,9 +5,14 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Orderdetail;
+use App\Models\Product;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\DB;
+
+
 class OrderController extends Controller
 {
     public function FinalInvoice(Request $request){
@@ -71,6 +76,17 @@ class OrderController extends Controller
     public function OrderStatus(Request $request){
 
         $order_id = $request->id;
+
+        $orders = Orderdetail::where('order_id',$order_id)->get();
+
+        foreach ($orders as $order){
+            Product::where('id',$order->product_id)
+                ->update([
+                    'product_store' => DB::raw('product_store -'.$order->quantity)
+                ]);
+        }
+
+
         Order::findOrFail($order_id)->update(['order_status' => 'complete']);
 
         $notification = array(
@@ -82,8 +98,30 @@ class OrderController extends Controller
     }
 
     public function CompleteOrder(){
+
         $orders = Order::where('order_status','complete')->get();
         return view('backend.order.complete_order',compact('orders'));
+    }
+
+    public function StockManage(){
+
+        $product = Product::latest()->get();
+        return view('backend.stock.all_stock',compact('product'));
+
+    }// End Method
+
+    public function PdfInvoice($id){
+
+        $order = Order::where('id',$id)->first();
+
+        $orderItem = Orderdetail::with('product')->where('order_id',$id)->orderBy('id','DESC')->get();
+
+//        return view('backend.invoice.order_invoice',compact('order','orderItem'));
+
+        $pdf = Pdf::loadView('backend.invoice.order_invoice',compact('order','orderItem'))
+            ->setPaper('a4')->setOption(['tempDir',public_path(),'chroot',public_path()]);
+
+        return $pdf->download('invoice.pdf');
     }
 
 }
