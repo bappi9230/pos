@@ -263,6 +263,54 @@
                 </li>
                 <!--========= End Stoke Manage  ==================-->
 
+                <!--========= Start Role and Permission ==================-->
+                <li>
+                    <a href="#permission" data-bs-toggle="collapse">
+                        <i class="mdi mdi-email-multiple-outline"></i>
+                        <span> Role and Permission  </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="permission">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="{{ route('all.permission') }}"> All Permission </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('all.roles') }}">All Roles </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('add.roles.permission') }}">Add Roles & Permission </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('all.roles.permission') }}">All Roll & Permission </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <!--========= End Role and Permission  ==================-->
+
+
+                <!--========= Start All Admin User ==================-->
+                <li>
+                    <a href="#admin" data-bs-toggle="collapse">
+                        <i class="mdi mdi-email-multiple-outline"></i>
+                        <span> Setting Admin User </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="admin">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="{{ route('all.admin.user') }}"> All Admin</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('all.roles') }}">Add Admin </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <!--========= End All Admin User  ==================-->
+
+
                 <li class="menu-title mt-2">Custom</li>
 
 

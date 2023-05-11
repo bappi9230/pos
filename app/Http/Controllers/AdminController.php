@@ -130,5 +130,17 @@ class AdminController extends Controller
     }// End Method
 
 
+    /////////////// All admin users roles and permission////////////////////////
+
+    public function AllAdminUser(){
+
+        $all_admin_user = User::all();
+        return view('backend.admin.all_admin',compact('all_admin_user'));
+    } //end method
+    public function AddAdmin(){
+
+        $roles = Role::all();
+        return view('backend.admin.add_admin',compact('roles'));
+    }
 
 }

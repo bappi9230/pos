@@ -50,3 +50,5 @@ require __DIR__.'/expense.php';
 require __DIR__.'/pos.php';
 
 require __DIR__ .'/order.php';
+
+require __DIR__.'/permission.php';

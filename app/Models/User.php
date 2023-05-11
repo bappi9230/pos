@@ -6,11 +6,13 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -43,4 +45,40 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function getpermissiongroup(){
+        $permission_group = DB::table('permissions')->select('group_name')->groupBy('group_name')->get();
+        return $permission_group;
+    }
+
+    public static function getpermissiongroupbyname($group_name){
+        $permission_groupby_name = DB::table('permissions')
+                                    ->select('name','id')->where('group_name',$group_name)
+                                    ->get();
+        return $permission_groupby_name;
+    }
+
+    public static function hasPermission($role,$permissions){
+
+        $hasGroupNamePermission = true;
+
+        foreach ($permissions as $permission ){
+            if ( !$role->hasPermissionTo($permission->name)){
+                $hasGroupNamePermission = false;
+                return $hasGroupNamePermission;
+            }
+            return $hasGroupNamePermission;
+        }
+    }
+
+    public static function hasGroupByNamePermission($role,$permissions){
+
+        $hasGroupByNamePermission = false;
+        if ($role->hasPermissionTo($permissions->name)){
+            $hasGroupByNamePermission = true;
+            return $hasGroupByNamePermission ;
+        }
+        return $hasGroupByNamePermission ;
+    }
+
 }
