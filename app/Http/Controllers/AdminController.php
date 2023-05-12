@@ -7,9 +7,10 @@ use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
-
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
@@ -55,8 +56,11 @@ class AdminController extends Controller
         $old_image = $adminData->photo;
 
         if ($request->file('photo')) {
+
+            if (!empty($adminData->photo)){
+                unlink($old_image);
+            }
             $image = $request->file('photo');
-            unlink($old_image);
             $image_rename = hexdec(uniqid('', false)) . '.' . $image->getClientOriginalExtension();
             Image::make($image)->resize(150, 150)->save('upload/admin_image/' . $image_rename);
             $image_save = 'upload/admin_image/' . $image_rename;
@@ -95,6 +99,7 @@ class AdminController extends Controller
 
 
     public function AdminProfileStore(Request $request){
+
        $request->validate([
           'old_password' => 'required',
           'new_password' => 'required|confirmed',
@@ -143,4 +148,67 @@ class AdminController extends Controller
         return view('backend.admin.add_admin',compact('roles'));
     }
 
+    public function AdminStore(Request $request){
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        if ($request->roles){
+            $user->assignRole($request->roles);
+        }
+
+
+        $notification = array(
+            'message'   => 'User Role Created Successfully',
+            'alert-type'=> 'success',
+        );
+        return redirect()->route('all.admin.user')->with($notification);
+    }
+
+
+    public function AdminEdit($id){
+        $roles = Role::all();
+        $user  = User::findOrFail($id);
+        return view('backend.admin.edit_admin',compact('user','roles'));
+    }
+
+
+    public  function AdminUpdate(Request $request){
+
+        $user_id = $request->id;
+
+        $user = User::findOrFail($user_id);
+        $user->name =$request->name;
+        $user->email =$request->email;
+        $user->phone =$request->phone;
+        $user->save();
+
+        $user->roles()->detach();
+        if ( !empty($request->roles)){
+            $user->assignRole($request->roles);
+        }
+        $notification = array(
+            'message'   => 'User Role Updated Successfully',
+            'alert-type'=> 'success',
+        );
+        return redirect()->route('all.admin.user')->with($notification);
+
+    }
+
+    public function AdminDelete($id){
+
+        $user = User::findOrFail($id);
+        if ( !is_null($user)  ){
+            $user->delete();
+        }
+        $notification = array(
+            'message'   => 'User Role Deleted Successfully',
+            'alert-type'=> 'success',
+        );
+        return redirect()->route('all.admin.user')->with($notification);
+    }
 }

@@ -51,8 +51,12 @@
                                         <td>{{$item->phone}}</td>
                                         <td>{{ $item->shopname }}</td>
                                         <td>
+                                            @if(Auth::user()->can('customer.edit'))
                                             <a href="{{ route('edit.customer',$item->id) }}" class="btn btn-info sm" title="Edit" ><i class="fa fa-edit"></i></a>
+                                            @endif
+                                            @if(Auth::user()->can('customer.delete'))
                                             <a href="{{ route('delete.customer',$item->id) }}" class="btn btn-danger sm" title="Delete" id="delete" ><i class="fa fa-trash" ></i></a>
+                                            @endif
                                         </td>
                                     </tr>
 

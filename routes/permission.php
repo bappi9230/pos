@@ -57,4 +57,13 @@ Route::controller(AdminController::class)->group(function (){
     Route::get('/all/admin','AllAdminUser')->name('all.admin.user');
 
     Route::get('/add/admin','AddAdmin')->name('add.admin');
+
+    Route::post('/store/admin','AdminStore')->name('Admin.store');
+
+    Route::get('/edit/admin/{id}','AdminEdit')->name('edit.admin.user');
+
+    Route::post('/update/admin','AdminUpdate')->name('Admin.update');
+
+    Route::get('/delete/admin/{id}','AdminDelete')->name('admin.delete.user');
+
 });

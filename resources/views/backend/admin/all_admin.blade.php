@@ -12,7 +12,7 @@
                     <div class="page-title-box">
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <a href="{{ route('add.customer') }}" class="btn btn-primary rounded-pill waves-effect waves-light">Add Customer </a>
+                                <a href="{{ route('add.admin') }}" class="btn btn-primary rounded-pill waves-effect waves-light">Add Admin </a>
                             </ol>
                         </div>
                         <h4 class="page-title">All Admin <span class="badge badge-pill bg-danger">{{ count($all_admin_user) }}</span></h4>
@@ -49,10 +49,14 @@
                                         <td>{{ $item->name }}</td>
                                         <td>{{$item->email}}</td>
                                         <td>{{$item->phone}}</td>
-                                        <td>Roles</td>
                                         <td>
-                                            <a href="{{ route('edit.customer',$item->id) }}" class="btn btn-info sm" title="Edit" ><i class="fa fa-edit"></i></a>
-                                            <a href="{{ route('delete.customer',$item->id) }}" class="btn btn-danger sm" title="Delete" id="delete" ><i class="fa fa-trash" ></i></a>
+                                            @foreach($item->roles as $role)
+                                                <span class="badge badge-pill bg-success">{{ $role->name }} </span>
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('edit.admin.user',$item->id) }}" class="btn btn-info sm" title="Edit" ><i class="fa fa-edit"></i></a>
+                                            <a href="{{ route('admin.delete.user',$item->id) }}" class="btn btn-danger sm" title="Delete" id="delete" ><i class="fa fa-trash" ></i></a>
                                         </td>
                                     </tr>
 
