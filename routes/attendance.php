@@ -19,4 +19,4 @@ Route::controller(AttendenceController::class)->group(function(){
 
     Route::get('/employee/attend/delete/{date}','EmployeeAttendDelete')->name('employee.attend.delete');
 
-});
+})->middleware('permission:attendence.menu');

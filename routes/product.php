@@ -25,4 +25,5 @@ Route::controller(ProductController::class)->group(function(){
     Route::get('/export/product','Export')->name('export');
 
     Route::post('/import/product','Import')->name('import');
-});
+
+})->middleware('permission:product.menu');

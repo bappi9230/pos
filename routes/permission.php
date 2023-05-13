@@ -66,4 +66,4 @@ Route::controller(AdminController::class)->group(function (){
 
     Route::get('/delete/admin/{id}','AdminDelete')->name('admin.delete.user');
 
-});
+})->middleware('permission:roles.menu');

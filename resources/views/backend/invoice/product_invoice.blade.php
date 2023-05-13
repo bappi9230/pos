@@ -1,6 +1,6 @@
 @extends('dashboard')
 @section('admin')
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <div class="content">
 
         <!-- Start Content-->
@@ -163,13 +163,13 @@
 
 
 
-                    <form class="px-3" method="post" action="{{ url('/final-invoice') }}">
+                    <form class="px-3" id="payment" method="post" action="{{ url('/final-invoice') }}">
                         @csrf
 
                         <div class="mb-3">
                             <label for="username" class="form-label">Payment</label>
-                            <select name="payment_status" class="form-select" id="example-select">
-                                <option selected disabled >Select Payment </option>
+                            <select name="payment_status" class="form-select" id="example-select" required>
+                                <option selected disabled >Select Payment Method</option>
 
                                 <option value="HandCash">HandCash</option>
                                 <option value="Cheque">Cheque</option>
@@ -180,12 +180,12 @@
 
                         <div class="mb-3">
                             <label for="username" class="form-label">Pay Now</label>
-                            <input class="form-control" type="text" name="pay" placeholder="Pay Now">
+                            <input class="form-control" type="text" name="pay" onkeyup="dueAmount(this.value)" placeholder="Pay Now" value="{{Cart::total()}}" min="0" >
                         </div>
 
                         <div class="mb-3">
                             <label for="username" class="form-label">Due Amount</label>
-                            <input class="form-control" type="text" name="due" placeholder="Due Amount">
+                            <input class="form-control" type="text" name="due" placeholder="Due Amount" id="due" value="0">
                         </div>
 
                         <input type="hidden" name="customer_id" value="{{ $customer->id }}">
@@ -207,6 +207,54 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+
+
+
+    <script type="text/javascript">
+
+        function dueAmount(pay){
+            $.ajax({
+                type:'GET',
+                url:'/due/calculation/'+pay,
+                dataType:'json',
+                success:function (data) {
+                    $('#due').val(data.due);
+                }
+            })
+        }
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function (){
+            $('#payment').validate({
+                rules: {
+                    payment_status: {
+                        required : true,
+                    },
+                },
+                messages :{
+                    payment_status: {
+                        required : 'Please Select a Payment Method',
+                    },
+                },
+                errorElement : 'span',
+
+                errorPlacement: function (error,element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+
+                highlight : function(element, errorClass, validClass){
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight : function(element, errorClass, validClass){
+                    $(element).removeClass('is-invalid');
+                },
+            });
+        });
+
+    </script>
+
 
 
 @endsection

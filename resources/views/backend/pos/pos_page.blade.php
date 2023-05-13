@@ -119,9 +119,9 @@
                                 <table id="basic-datatable" class="table dt-responsive nowrap w-100">
                                     <thead>
                                     <tr>
-                                        <th>Sl</th>
                                         <th>Image</th>
                                         <th>Name</th>
+                                        <th>Price</th>
                                         <th>Product Code</th>
                                         <th>Action</th>
                                     </tr>
@@ -138,9 +138,9 @@
                                                     <input type="hidden" name="qty" value="1">
                                                     <input type="hidden" name="price" value="{{ $item->selling_price }}">
 
-                                                    <td>{{ $key+1 }}</td>
                                                     <td> <img src="{{ asset($item->product_image) }}" style="width:50px; height: 40px;"> </td>
                                                     <td>{{ $item->product_name }}</td>
+                                                    <td>{{ $item->selling_price }}</td>
                                                     <td>{{ $item->product_code }}</td>
                                                     <td><button type="submit" style="font-size: 20px; color: #000;" > <i class="fas fa-plus-square"></i> </button> </td>
 

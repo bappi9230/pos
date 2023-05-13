@@ -8,9 +8,12 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Artisan;
 
 class AdminController extends Controller
 {
@@ -211,4 +214,42 @@ class AdminController extends Controller
         );
         return redirect()->route('all.admin.user')->with($notification);
     }
+
+    ////////////////////////////database Backup/////////////////
+
+    public function DatabaseBackup(){
+
+        return view('backend.admin.db_backup')->with('files',File::allFiles(storage_path('/app/Point_of_Sale')));
+    }
+
+    public function BackupNow(){
+
+        Artisan::call('backup:run');
+
+        $notification = array(
+            'message'   => 'Database Backup Successfully',
+            'alert-type'=> 'success',
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function DownloadDatabase($getFilename){
+
+        $path = storage_path('/app/Point_of_Sale/'.$getFilename);
+//        return response()->download($path);
+    }
+
+
+    public function DeleteDatabase($getFilename){
+
+       Storage::delete('Point_of_Sale/'.$getFilename);
+        $notification = array(
+            'message'   => 'Database Deleted Successfully',
+            'alert-type'=> 'success',
+        );
+        return redirect()->back()->with($notification);
+
+    }
+
+
 }

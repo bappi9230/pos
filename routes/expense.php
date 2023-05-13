@@ -18,4 +18,4 @@ Route::controller(ExpenseController::class)->group(function (){
 
     Route::get('/yearly/expense','YearlyExpense')->name('yearly.expense');
 
-});
+})->middleware('permission:expense.menu');

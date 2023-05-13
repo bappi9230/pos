@@ -124,4 +124,16 @@ class OrderController extends Controller
         return $pdf->download('invoice.pdf');
     }
 
+    public function DueCalculation($pay=0){
+        return response()->json(['due'=>round(Cart::total()-$pay)]);
+
+    }
+
+    public function PendingDue(){
+
+        $alldue = Order::where('due','>','0')->orderBy('id','DESC')->get();
+        return view('backend.order.pending_due',compact('alldue'));
+    }// End Method
+
+
 }

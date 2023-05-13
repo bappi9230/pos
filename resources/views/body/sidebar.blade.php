@@ -279,7 +279,9 @@
                             <li>
                                 <a href="{{ route('complete.product') }}">Complete Orders </a>
                             </li>
-
+                            <li>
+                                <a href="{{ route('pending.due') }}">Pending Due </a>
+                            </li>
 
                         </ul>
                     </div>
@@ -375,13 +377,40 @@
                         <ul class="nav-second-level">
                             <li>
                                 <a href="{{ route('add.expense') }}">Add Expense </a>
+                            </li>
+                            <li>
                                 <a href="{{ route('daily.expense') }}">Today Expense </a>
+                            </li>
+
+                            <li>
                                 <a href="{{ route('monthly.expense') }}">Monthly Expense </a>
+                            </li>
+                            <li>
                                 <a href="{{ route('yearly.expense') }}">Yearly Expense </a>
                             </li>
                         </ul>
                     </div>
                 </li>
+                @endif
+                <!--========= End Expense manage ==================-->
+
+
+                <!--========= Start Database Backup ==================-->
+                @if(Auth::user()->can('expense.menu'))
+                    <li>
+                        <a href="#backup" data-bs-toggle="collapse">
+                            <i class="mdi mdi-email-multiple-outline"></i>
+                            <span>Database Backup</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="backup">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="{{ route('database.backup') }}">Backup</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                 @endif
                 <!--========= End Expense manage ==================-->
 

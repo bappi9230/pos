@@ -20,3 +20,15 @@ Route::get('/change/password', [AdminController::class, 'ChangePassword'])->name
 Route::post('/admin/profile/store', [AdminController::class, 'AdminProfileStore'])->name('admin.profile.store');
 
 });
+
+
+Route::controller(AdminController::class)->group(function (){
+
+    Route::get('/database/backup','DatabaseBackup')->name('database.backup');
+
+    Route::get('/backup/now','BackupNow')->name('backup.now');
+
+    Route::get('{getFilename}','DownloadDatabase');
+
+    Route::get('/delete/database/{getFilename}','DeleteDatabase');
+});

@@ -4,7 +4,7 @@ use App\Http\Controllers\Backend\PosController;
 
 Route::controller(PosController::class)->group(function (){
 
-    Route::get('/pos','Pos')->name('pos');
+    Route::get('/pos/page','Pos')->name('pos');
 
     Route::post('/add/to/cart','AddToCart')->name('addToCart');
 
@@ -15,4 +15,4 @@ Route::controller(PosController::class)->group(function (){
     Route::post('/create-invoice','CreateInvoice');
 
 
-});
+})->middleware('permission:pos.menu');

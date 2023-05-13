@@ -18,4 +18,4 @@ Route::controller(CategoryController::class)->group(function(){
 
     Route::get('/delete/category/{id}','DeleteCategory')->name('delete.category');
 
-});
+})->middleware('permission:category.menu');
